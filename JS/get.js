@@ -12,3 +12,13 @@ const round3 = obj.__defineGetter__('a', function() {
     return 'get a'
 })
 console.log(round, round2, obj.a)
+
+Object.myIs = function(a, b) {
+    if (a === b) {
+        return a !== 0 || 1 / a === 1 / b
+    }
+    return a !== a && b !== b
+}
+
+const myRes = Object.myIs({}, {})
+console.log(myRes)
