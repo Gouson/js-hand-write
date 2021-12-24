@@ -23,10 +23,15 @@ function deepClone(origin, hashMap = new WeakMap()) {
         return new RegExp(origin)
     }
 
+    const hashKey = hashMap.get(origin)
+    if (hashKey) {
+        return hashKey;
+    }
     const target = new origin.constructor()
+    hashMap.set(origin, target)
     for (let k in origin) {
         if (origin.hasOwnProperty(k)) {
-            target[k] = deepClone(origin[k])
+            target[k] = deepClone(origin[k], hashMap)
         }
     }
     return target
@@ -68,3 +73,11 @@ console.log(obj, newObj)
     }
 }
 ***/
+
+//hashMap解决循环问题
+let test1 = {}
+let test2 = {}
+test2.test1 = test1
+test1.test2 = test2
+
+console.log(deepClone(test1))
