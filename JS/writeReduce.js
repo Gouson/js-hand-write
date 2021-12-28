@@ -40,3 +40,26 @@ console.log(newArr)
         age: 28
     }]
     **/
+
+Array.prototype.myReduce = function(cb, initialValue) {
+    var _arr = this
+    var _len = _arr.length
+    var _arg3 = arguments[2] || window
+    var _item
+    for (var i = 0; i < _len; i++) {
+        _item = deepClone(_arr[i])
+        initialValue = cb.apply(_arg3, [initialValue, _item, i, _arr])
+    }
+    return initialValue
+}
+Array.prototype.myReduceRight = function(cb, initialValue) {
+    var _arr = this
+    var _len = _arr.length
+    var _arg3 = arguments[2] || window
+    var _item
+    for (var i = _len; i >= 0; i--) {
+        _item = deepClone(_arr[i])
+        initialValue = cb.apply(_arg3, [initialValue, _item, i, _arr])
+    }
+    return initialValue
+}
